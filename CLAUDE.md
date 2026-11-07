@@ -15,6 +15,9 @@ Arcade Vault: an online platform for playing games and competing for the highest
 
 No test runner is configured.
 
+## skills
+Usa siempre /frontend-design para hacer interfaz de usuairo
+
 ## Next.js version warning
 
 `package.json` pins Next 16.4.5 with React 19.3, which has breaking changes from older Next.js. `AGENTS.md` requires reading the relevant guide in `node_modules/next/dist/docs/` (`01-app`, `02-pages`, `03-architecture`, `04-community`) before writing Next.js code, and heeding deprecation notices. Don't rely on memory of older APIs.
