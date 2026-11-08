@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Plantillas de referencia (React vía Babel en el navegador), no son código de la app.
+    "resources/**",
   ]),
 ]);
 

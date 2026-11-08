@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "404 · Arcade Vault",
+  title: "404",
   description: "Esta página no existe en el vault.",
 };
 
