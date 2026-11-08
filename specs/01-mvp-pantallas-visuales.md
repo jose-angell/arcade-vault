@@ -1,6 +1,6 @@
 # SPEC 01 — MVP visual: pantallas de Arcade Vault
 
-> **Estado:** aprobado
+> **Estado:** implementado
 > **Depende de:** —
 > **Fecha:** 2026-11-06
 > **Objetivo:** Portar a Next.js App Router las cinco pantallas de `resources/templates/` (biblioteca, detalle, reproductor, acceso y salón de la fama) con datos mock y sin ningún juego real.
@@ -80,21 +80,21 @@ Antes de escribir cada ruta se leen las guías de `node_modules/next/dist/docs/`
 
 ## Criterios de aceptación
 
-- [ ] `npm run build` y `npm run lint` terminan sin errores.
-- [ ] `/` muestra los 8 juegos. Escribir "ser" deja solo SERPENTINA.
-- [ ] El chip PUZZLE deja solo CAÍDA. Una búsqueda sin coincidencias muestra "NO HAY RESULTADOS".
-- [ ] Pulsar una tarjeta navega a `/juegos/<id>` y muestra el título, la descripción larga y 10 filas de leaderboard.
-- [ ] `/juegos/no-existe` muestra la página 404 retro con enlace a `/`.
-- [ ] "JUGAR AHORA" navega a `/juegos/<id>/jugar` y la puntuación del HUD sube sola.
-- [ ] PAUSA detiene la puntuación y muestra "EN PAUSA". REANUDAR la reanuda.
-- [ ] FIN abre el modal con la puntuación final. GUARDAR PUNTUACIÓN muestra "▸ PUNTUACIÓN GUARDADA_". JUGAR DE NUEVO reinicia a 0.
-- [ ] Entrar en `/acceso` con usuario "kai" redirige a `/` y la navbar muestra "KAI ▾".
-- [ ] Con sesión iniciada, el HUD del reproductor muestra el nombre y `/salon` muestra la fila "TU MEJOR MARCA".
-- [ ] Pulsar "KAI ▾" cierra la sesión y la navbar vuelve a "Iniciar Sesión".
-- [ ] `/salon` muestra podio de 3 y tabla de 12 filas, y cambia los datos al pulsar otra pestaña de juego.
-- [ ] El link activo de la navbar se resalta en `/`, `/juegos/*` (Biblioteca) y `/salon`.
-- [ ] Con ancho ≤ 840px la navbar muestra el botón ≡ y abre el panel lateral.
-- [ ] Recargar la página pierde la sesión (no se usa `localStorage`).
+- [x] `npm run build` y `npm run lint` terminan sin errores.
+- [x] `/` muestra los 8 juegos. Escribir "ser" deja solo SERPENTINA.
+- [x] El chip PUZZLE deja solo CAÍDA. Una búsqueda sin coincidencias muestra "NO HAY RESULTADOS".
+- [x] Pulsar una tarjeta navega a `/juegos/<id>` y muestra el título, la descripción larga y 10 filas de leaderboard.
+- [x] `/juegos/no-existe` muestra la página 404 retro con enlace a `/`.
+- [x] "JUGAR AHORA" navega a `/juegos/<id>/jugar` y la puntuación del HUD sube sola.
+- [x] PAUSA detiene la puntuación y muestra "EN PAUSA". REANUDAR la reanuda.
+- [x] FIN abre el modal con la puntuación final. GUARDAR PUNTUACIÓN muestra "▸ PUNTUACIÓN GUARDADA_". JUGAR DE NUEVO reinicia a 0.
+- [x] Entrar en `/acceso` con usuario "kai" redirige a `/` y la navbar muestra "KAI ▾".
+- [x] Con sesión iniciada, el HUD del reproductor muestra el nombre y `/salon` muestra la fila "TU MEJOR MARCA".
+- [x] Pulsar "KAI ▾" cierra la sesión y la navbar vuelve a "Iniciar Sesión".
+- [x] `/salon` muestra podio de 3 y tabla de 12 filas, y cambia los datos al pulsar otra pestaña de juego.
+- [x] El link activo de la navbar se resalta en `/`, `/juegos/*` (Biblioteca) y `/salon`.
+- [x] Con ancho ≤ 840px la navbar muestra el botón ≡ y abre el panel lateral.
+- [x] Recargar la página pierde la sesión (no se usa `localStorage`).
 
 ## Decisiones
 

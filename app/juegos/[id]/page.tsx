@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import { LoadingScreen } from "@/components/loading-screen";
 import { GAMES, getGame, seededScores } from "@/lib/games";
 
 export function generateStaticParams() {
@@ -18,9 +20,20 @@ export async function generateMetadata({
 
 const TOP_CLASS = ["top1", "top2", "top3"];
 
-export default async function GameDetailPage({
+export default function GameDetailPage(props: PageProps<"/juegos/[id]">) {
+  return (
+    <Suspense fallback={<LoadingScreen />}>
+      <GameDetail params={props.params} />
+    </Suspense>
+  );
+}
+
+// `params` se lee dentro de <Suspense> para no bloquear la navegación.
+async function GameDetail({
   params,
-}: PageProps<"/juegos/[id]">) {
+}: {
+  params: PageProps<"/juegos/[id]">["params"];
+}) {
   const { id } = await params;
   const game = getGame(id);
   if (!game) notFound();
