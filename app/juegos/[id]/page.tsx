@@ -72,7 +72,7 @@ export default async function GameDetailPage({
               <div className="rk">#{String(r.rank).padStart(2, "0")}</div>
               <div className="pl">
                 {r.name}
-                <div className="text-[10px] tracking-[0.1em] text-ink-faint">
+                <div className="text-[10px] tracking-widest text-ink-faint">
                   {r.date}
                 </div>
               </div>
