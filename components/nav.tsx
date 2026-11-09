@@ -10,8 +10,10 @@ export function Nav() {
   const { user, signOut } = useSession();
   const [open, setOpen] = useState(false);
 
+  const isHome = pathname === "/";
   // Biblioteca incluye el detalle y el reproductor (/juegos/*).
-  const isLibrary = pathname === "/" || pathname.startsWith("/juegos");
+  const isLibrary =
+    pathname.startsWith("/biblioteca") || pathname.startsWith("/juegos");
   const isHall = pathname.startsWith("/salon");
   const isAuth = pathname.startsWith("/acceso");
 
@@ -38,6 +40,13 @@ export function Nav() {
         <div className="links">
           <Link
             href="/"
+            className={isHome ? "active" : ""}
+            aria-current={isHome ? "page" : undefined}
+          >
+            Inicio
+          </Link>
+          <Link
+            href="/biblioteca"
             className={isLibrary ? "active" : ""}
             aria-current={isLibrary ? "page" : undefined}
           >
@@ -89,6 +98,14 @@ export function Nav() {
         <div className="pixel neon-cyan mb-4 text-[11px]">MENÚ</div>
         <Link
           href="/"
+          className={isHome ? "active" : ""}
+          aria-current={isHome ? "page" : undefined}
+          onClick={close}
+        >
+          Inicio
+        </Link>
+        <Link
+          href="/biblioteca"
           className={isLibrary ? "active" : ""}
           aria-current={isLibrary ? "page" : undefined}
           onClick={close}
