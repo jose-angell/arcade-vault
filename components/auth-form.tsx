@@ -19,12 +19,12 @@ export function AuthForm() {
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signIn({ name: (username || "PLAYER1").toUpperCase().slice(0, 10) });
-    router.push("/");
+    router.push("/biblioteca");
   };
 
   const playAsGuest = () => {
     signOut();
-    router.push("/");
+    router.push("/biblioteca");
   };
 
   return (
