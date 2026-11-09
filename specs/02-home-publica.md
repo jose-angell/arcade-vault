@@ -1,6 +1,6 @@
 # SPEC 02 — Home pública de Arcade Vault
 
-> **Estado:** aprobado
+> **Estado:** implementado
 > **Depende de:** SPEC 01
 > **Fecha:** 2026-11-08
 > **Objetivo:** Convertir `/` en una home pública portada de `resources/templates/home-about/home.jsx`, visible con o sin sesión, y mover la biblioteca a `/biblioteca`.
@@ -67,21 +67,21 @@ Antes de los pasos 1 y 9 se leen las guías relevantes de `node_modules/next/dis
 
 ## Criterios de aceptación
 
-- [ ] `npm run build` y `npm run lint` terminan sin errores.
-- [ ] `/` muestra el hero "EL ARCADE CLÁSICO ESTÁ DE VUELTA" y las secciones // 01 a // 04 más el CTA final.
-- [ ] `/biblioteca` muestra los 8 juegos con buscador y chips como antes en `/`.
-- [ ] El rail de la home muestra 6 mini-cards. Pulsar una navega a `/juegos/<id>`.
-- [ ] La stat de juegos muestra "8" y ningún texto de la home menciona Arkanoid, Tetris ni Snake.
-- [ ] "EXPLORAR JUEGOS", "VER TODOS LOS JUEGOS →" e "INSERTAR MONEDA →" navegan a `/biblioteca`.
-- [ ] "VER SALÓN →" navega a `/salon`.
-- [ ] Sin sesión, "CREAR CUENTA" y "EMPEZAR GRATIS →" navegan a `/acceso`.
-- [ ] Con sesión ("kai"), esos dos botones no aparecen y en su lugar hay "SEGUIR JUGANDO" hacia `/biblioteca`.
-- [ ] Iniciar sesión o "JUGAR COMO INVITADO" en `/acceso` redirige a `/biblioteca`.
-- [ ] La navbar muestra "Inicio" y "Biblioteca". "Inicio" se resalta solo en `/`. "Biblioteca" se resalta en `/biblioteca` y `/juegos/*`.
-- [ ] El panel móvil (≤ 840px) incluye "Inicio" y "Biblioteca". No hay link "Acerca de".
-- [ ] "VOLVER" en detalle, salón y reproductor lleva a `/biblioteca`.
-- [ ] Al hacer scroll las secciones `.reveal` aparecen. Con `prefers-reduced-motion: reduce` todo el contenido se ve sin animación.
-- [ ] La consola no muestra errores de hidratación en `/`.
+- [x] `npm run build` y `npm run lint` terminan sin errores.
+- [x] `/` muestra el hero "EL ARCADE CLÁSICO ESTÁ DE VUELTA" y las secciones // 01 a // 04 más el CTA final.
+- [x] `/biblioteca` muestra los 8 juegos con buscador y chips como antes en `/`.
+- [x] El rail de la home muestra 6 mini-cards. Pulsar una navega a `/juegos/<id>`.
+- [x] La stat de juegos muestra "8" y ningún texto de la home menciona Arkanoid, Tetris ni Snake.
+- [x] "EXPLORAR JUEGOS", "VER TODOS LOS JUEGOS →" e "INSERTAR MONEDA →" navegan a `/biblioteca`.
+- [x] "VER SALÓN →" navega a `/salon`.
+- [x] Sin sesión, "CREAR CUENTA" y "EMPEZAR GRATIS →" navegan a `/acceso`.
+- [x] Con sesión ("kai"), esos dos botones no aparecen y en su lugar hay "SEGUIR JUGANDO" hacia `/biblioteca`.
+- [x] Iniciar sesión o "JUGAR COMO INVITADO" en `/acceso` redirige a `/biblioteca`.
+- [x] La navbar muestra "Inicio" y "Biblioteca". "Inicio" se resalta solo en `/`. "Biblioteca" se resalta en `/biblioteca` y `/juegos/*`.
+- [x] El panel móvil (≤ 840px) incluye "Inicio" y "Biblioteca". No hay link "Acerca de".
+- [x] "VOLVER" en detalle, salón y reproductor lleva a `/biblioteca`.
+- [x] Al hacer scroll las secciones `.reveal` aparecen. Con `prefers-reduced-motion: reduce` todo el contenido se ve sin animación.
+- [x] La consola no muestra errores de hidratación en `/`.
 
 ## Decisiones
 
