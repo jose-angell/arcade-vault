@@ -1,6 +1,6 @@
 # SPEC 03 — Página Acerca de y contacto por correo
 
-> **Estado:** aprobado
+> **Estado:** implementado
 > **Depende de:** SPEC 01, SPEC 02
 > **Fecha:** 2026-11-09
 > **Objetivo:** Portar `resources/templates/home-about/about.jsx` a `/acerca` con aspecto idéntico y hacer que el formulario de contacto envíe un correo real al equipo mediante Resend.
@@ -74,21 +74,21 @@ Antes de los pasos 4 y 6 se leen las guías de `node_modules/next/dist/docs/` so
 
 ## Criterios de aceptación
 
-- [ ] `npm run build` y `npm run lint` terminan sin errores.
-- [ ] `/acerca` muestra "ACERCA DE ARCADE VAULT", la misión, los tres highlights, el divisor y "CONTÁCTANOS" con los mismos textos, colores y disposición que la plantilla.
-- [ ] Enviar con algún campo vacío sacude el formulario y no llama a la Server Action.
-- [ ] Mientras se envía, el botón está deshabilitado y muestra "▶  ENVIANDO…".
-- [ ] Con env configurado, enviar nombre "kai" llega un correo a `CONTACT_TO_EMAIL` con asunto "[Arcade Vault] Mensaje de kai" y "Responder" va al correo del formulario.
-- [ ] Tras enviar, la terminal muestra "> MENSAJE RECIBIDO. TE RESPONDEREMOS PRONTO. GRACIAS, KAI._".
-- [ ] "ENVIAR OTRO MENSAJE" vuelve al formulario vacío.
-- [ ] Sin `RESEND_API_KEY` o con una clave inválida, aparece la terminal de error con líneas `[ERR]`, y "REINTENTAR" vuelve al formulario con los valores intactos.
-- [ ] Un mensaje de más de 2000 caracteres o un correo sin dominio devuelve la terminal de error sin enviar correo.
-- [ ] Rellenar el honeypot (vía DevTools) muestra éxito y no envía correo.
-- [ ] Un mensaje con `<script>` llega escapado en el correo HTML.
-- [ ] La navbar muestra "Acerca de" tras "Salón", resaltado solo en `/acerca`, también en el panel móvil (≤ 840px).
-- [ ] Con `prefers-reduced-motion: reduce` el contenido se ve sin animación y los píxeles del divisor no parpadean.
-- [ ] `RESEND_API_KEY` no aparece en el bundle cliente ni en el repo.
-- [ ] La consola no muestra errores de hidratación en `/acerca`.
+- [x] `npm run build` y `npm run lint` terminan sin errores.
+- [x] `/acerca` muestra "ACERCA DE ARCADE VAULT", la misión, los tres highlights, el divisor y "CONTÁCTANOS" con los mismos textos, colores y disposición que la plantilla.
+- [x] Enviar con algún campo vacío sacude el formulario y no llama a la Server Action.
+- [x] Mientras se envía, el botón está deshabilitado y muestra "▶  ENVIANDO…".
+- [x] Con env configurado, enviar nombre "kai" llega un correo a `CONTACT_TO_EMAIL` con asunto "[Arcade Vault] Mensaje de kai" y "Responder" va al correo del formulario.
+- [x] Tras enviar, la terminal muestra "> MENSAJE RECIBIDO. TE RESPONDEREMOS PRONTO. GRACIAS, KAI._".
+- [x] "ENVIAR OTRO MENSAJE" vuelve al formulario vacío.
+- [x] Sin `RESEND_API_KEY` o con una clave inválida, aparece la terminal de error con líneas `[ERR]`, y "REINTENTAR" vuelve al formulario con los valores intactos.
+- [x] Un mensaje de más de 2000 caracteres o un correo sin dominio devuelve la terminal de error sin enviar correo.
+- [x] Rellenar el honeypot (vía DevTools) muestra éxito y no envía correo.
+- [x] Un mensaje con `<script>` llega escapado en el correo HTML.
+- [x] La navbar muestra "Acerca de" tras "Salón", resaltado solo en `/acerca`, también en el panel móvil (≤ 840px).
+- [x] Con `prefers-reduced-motion: reduce` el contenido se ve sin animación y los píxeles del divisor no parpadean.
+- [x] `RESEND_API_KEY` no aparece en el bundle cliente ni en el repo.
+- [x] La consola no muestra errores de hidratación en `/acerca`.
 
 ## Decisiones
 
