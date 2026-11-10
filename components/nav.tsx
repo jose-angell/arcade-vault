@@ -15,6 +15,7 @@ export function Nav() {
   const isLibrary =
     pathname.startsWith("/biblioteca") || pathname.startsWith("/juegos");
   const isHall = pathname.startsWith("/salon");
+  const isAbout = pathname === "/acerca";
   const isAuth = pathname.startsWith("/acceso");
 
   const close = () => setOpen(false);
@@ -58,6 +59,13 @@ export function Nav() {
             aria-current={isHall ? "page" : undefined}
           >
             Salón de la Fama
+          </Link>
+          <Link
+            href="/acerca"
+            className={isAbout ? "active" : ""}
+            aria-current={isAbout ? "page" : undefined}
+          >
+            Acerca de
           </Link>
         </div>
         <div className="spacer" />
@@ -119,6 +127,14 @@ export function Nav() {
           onClick={close}
         >
           Salón de la Fama
+        </Link>
+        <Link
+          href="/acerca"
+          className={isAbout ? "active" : ""}
+          aria-current={isAbout ? "page" : undefined}
+          onClick={close}
+        >
+          Acerca de
         </Link>
         <Link
           href="/acceso"

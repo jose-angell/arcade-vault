@@ -104,10 +104,10 @@ export function ContactForm() {
             aria-hidden="true"
             tabIndex={-1}
             autoComplete="off"
-            style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+            className="hp-field"
           />
 
-          <button className="btn xl press" type="submit" disabled={pending} style={{ width: "100%" }}>
+          <button className="btn xl press contact-submit" type="submit" disabled={pending}>
             {pending ? "▶  ENVIANDO…" : "▶  ENVIAR MENSAJE"}
           </button>
         </>
@@ -123,7 +123,7 @@ export function ContactForm() {
               &gt; MENSAJE RECIBIDO. TE RESPONDEREMOS PRONTO. GRACIAS, {state.name.toUpperCase()}.
               <span className="caret">_</span>
             </div>
-            <div style={{ marginTop: 18 }}>
+            <div className="term-actions">
               <button className="btn ghost" type="button" onClick={reset}>
                 ENVIAR OTRO MENSAJE
               </button>
@@ -149,7 +149,7 @@ export function ContactForm() {
             <div className="line success">
               &gt; ERROR. TU MENSAJE NO SE HA ENVIADO.<span className="caret">_</span>
             </div>
-            <div style={{ marginTop: 18 }}>
+            <div className="term-actions">
               <button className="btn ghost" type="button" onClick={retry}>
                 REINTENTAR
               </button>
