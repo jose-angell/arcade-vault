@@ -1,6 +1,6 @@
 # SPEC 04 — Integración base con Supabase
 
-> **Estado:** aprobado
+> **Estado:** implementado
 > **Depende de:** SPEC 01
 > **Fecha:** 2026-11-12
 > **Objetivo:** Conectar la app Next.js con el proyecto Supabase en la nube mediante clientes tipados de servidor y navegador, listos para que las próximas specs los usen.
@@ -78,16 +78,16 @@ Antes de los pasos 5 y 6 se leen las guías de `node_modules/next/dist/docs/` so
 
 ## Criterios de aceptación
 
-- [ ] `npm run build` y `npm run lint` terminan sin errores.
-- [ ] `package.json` incluye `@supabase/supabase-js` y `@supabase/ssr`.
-- [ ] `.env.template` documenta `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` sin valores reales.
-- [ ] Con las variables configuradas, `GET /api/salud` responde 200 con `{ "supabase": "ok" }`.
-- [ ] Con una clave inválida, `GET /api/salud` responde 503 con `{ "supabase": "error" }` y la consola del servidor registra el motivo.
-- [ ] Sin `NEXT_PUBLIC_SUPABASE_URL`, el error indica el nombre de la variable que falta.
-- [ ] `lib/supabase/server.ts` no puede importarse desde un componente cliente (falla el build por `server-only`).
-- [ ] Ambos clientes están tipados con `Database` de `lib/supabase/database.types.ts`.
-- [ ] Ninguna página existente cambia de aspecto ni de comportamiento.
-- [ ] `SUPABASE_DB_PASSWORD` no aparece en el bundle cliente ni en el repo.
+- [x] `npm run build` y `npm run lint` terminan sin errores.
+- [x] `package.json` incluye `@supabase/supabase-js` y `@supabase/ssr`.
+- [x] `.env.template` documenta `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` sin valores reales.
+- [x] Con las variables configuradas, `GET /api/salud` responde 200 con `{ "supabase": "ok" }`.
+- [x] Con una clave inválida, `GET /api/salud` responde 503 con `{ "supabase": "error" }` y la consola del servidor registra el motivo.
+- [x] Sin `NEXT_PUBLIC_SUPABASE_URL`, el error indica el nombre de la variable que falta.
+- [x] `lib/supabase/server.ts` no puede importarse desde un componente cliente (falla el build por `server-only`).
+- [x] Ambos clientes están tipados con `Database` de `lib/supabase/database.types.ts`.
+- [x] Ninguna página existente cambia de aspecto ni de comportamiento.
+- [x] `SUPABASE_DB_PASSWORD` no aparece en el bundle cliente ni en el repo.
 
 ## Decisiones
 
