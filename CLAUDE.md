@@ -16,6 +16,7 @@ Arcade Vault: an online platform for playing games and competing for the highest
 No test runner is configured.
 
 ## skills
+
 Usa siempre /frontend-design para hacer interfaz de usuairo
 
 ## Next.js version warning
@@ -27,4 +28,5 @@ Usa siempre /frontend-design para hacer interfaz de usuairo
 - App Router only (`app/`). The path alias `@/*` maps to the repo root.
 - `next.config.ts` enables `cacheComponents` and `partialPrefetching`, plus `experimental.agentFeedback`. With `cacheComponents` on, data fetching and caching follow the Cache Components model, so check the docs before using dynamic APIs or fetching in server components.
 - Tailwind CSS v4 is wired through Turbopack: a `*.css` rule in `next.config.ts` uses `@tailwindcss/turbopack`. There is no `tailwind.config` file, and styles live in `app/globals.css`.
+- Supabase vive solo en `lib/supabase/` (`env.ts`, `client.ts` para el navegador, `server.ts` con `server-only` y creado por petición, `database.types.ts` generado). Requiere `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (ver `.env.template`). `GET /api/salud` comprueba la conexión.
 - `app/layout.tsx` types its props with the globally generated `LayoutProps<"/">` helper (from `.next/types`), not a hand-written interface. It also loads the Geist fonts via `next/font/google`.
