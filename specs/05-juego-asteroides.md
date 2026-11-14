@@ -1,6 +1,6 @@
 # SPEC 05 — Juego Asteroides jugable en la plataforma
 
-> **Estado:** aprobado
+> **Estado:** implementado
 > **Depende de:** SPEC 01
 > **Fecha:** 2026-11-13
 > **Objetivo:** Portar `resources/02-asteroids` a un motor TypeScript que se monta en el CRT de `/juegos/asteroides/jugar` y alimenta el HUD y el modal de fin de partida de la plataforma con datos reales.
@@ -119,24 +119,24 @@ Antes del paso 4 se leen las guías de `node_modules/next/dist/docs/` sobre comp
 
 ## Criterios de aceptación
 
-- [ ] `npm run build` y `npm run lint` terminan sin errores.
-- [ ] La biblioteca muestra ASTEROIDES con portada `.cover-asteroides` y ya no existe ROCAS. `/juegos/rocas` da 404.
-- [ ] En `/juegos/asteroides/jugar` el CRT muestra el juego en canvas con el mismo aspecto y mecánicas que `resources/02-asteroids`: rotar, propulsar, disparar, partir asteroides, triple disparo, invencibilidad con parpadeo y paso de nivel.
-- [ ] El canvas se ve nítido en pantallas con `devicePixelRatio` 2 y llena el `.crt-screen` sin deformarse.
-- [ ] Al destruir un asteroide grande, la Puntuación del HUD de la plataforma sube 20 y coincide con el SCORE del canvas.
-- [ ] Al perder una vida, Vidas del HUD de la plataforma baja de ♥ ♥ ♥ a ♥ ♥. Al limpiar la oleada, Nivel pasa a 02.
-- [ ] Al perder la tercera vida, el canvas dibuja GAME OVER y se abre el modal con la misma puntuación final.
-- [ ] PAUSA congela el juego y muestra EN PAUSA. REANUDAR continúa sin saltos. `P` y `Esc` hacen lo mismo.
-- [ ] Cambiar de pestaña o de ventana pausa el juego automáticamente.
-- [ ] FIN abre el modal con la puntuación actual y el juego deja de responder a teclas.
-- [ ] JUGAR DE NUEVO empieza una partida con 0 puntos, 3 vidas y nivel 01.
-- [ ] Escribir en el input de iniciales del modal no mueve la nave ni dispara.
-- [ ] Flechas y Espacio no hacen scroll de la página mientras se juega.
-- [ ] Con emulación táctil aparece la botonera ◀ ▶ ▲ FUEGO. Mantener ◀ rota la nave y FUEGO dispara. En escritorio no aparece.
-- [ ] Bajo el CRT se ve la leyenda de controles.
-- [ ] Al salir con SALIR y volver a entrar hay una sola instancia: velocidad normal, sin listeners duplicados y sin errores en consola. También en dev con Strict Mode.
-- [ ] Los demás juegos (p. ej. `/juegos/caida/jugar`) siguen con la arena mock y la puntuación simulada.
-- [ ] La consola no muestra errores de hidratación en `/juegos/asteroides/jugar`.
+- [x] `npm run build` y `npm run lint` terminan sin errores.
+- [x] La biblioteca muestra ASTEROIDES con portada `.cover-asteroides` y ya no existe ROCAS. `/juegos/rocas` da 404.
+- [x] En `/juegos/asteroides/jugar` el CRT muestra el juego en canvas con el mismo aspecto y mecánicas que `resources/02-asteroids`: rotar, propulsar, disparar, partir asteroides, triple disparo, invencibilidad con parpadeo y paso de nivel.
+- [x] El canvas se ve nítido en pantallas con `devicePixelRatio` 2 y llena el `.crt-screen` sin deformarse.
+- [x] Al destruir un asteroide grande, la Puntuación del HUD de la plataforma sube 20 y coincide con el SCORE del canvas.
+- [x] Al perder una vida, Vidas del HUD de la plataforma baja de ♥ ♥ ♥ a ♥ ♥. Al limpiar la oleada, Nivel pasa a 02.
+- [x] Al perder la tercera vida, el canvas dibuja GAME OVER y se abre el modal con la misma puntuación final.
+- [x] PAUSA congela el juego y muestra EN PAUSA. REANUDAR continúa sin saltos. `P` y `Esc` hacen lo mismo.
+- [x] Cambiar de pestaña o de ventana pausa el juego automáticamente.
+- [x] FIN abre el modal con la puntuación actual y el juego deja de responder a teclas.
+- [x] JUGAR DE NUEVO empieza una partida con 0 puntos, 3 vidas y nivel 01.
+- [x] Escribir en el input de iniciales del modal no mueve la nave ni dispara.
+- [x] Flechas y Espacio no hacen scroll de la página mientras se juega.
+- [x] Con emulación táctil aparece la botonera ◀ ▶ ▲ FUEGO. Mantener ◀ rota la nave y FUEGO dispara. En escritorio no aparece.
+- [x] Bajo el CRT se ve la leyenda de controles.
+- [x] Al salir con SALIR y volver a entrar hay una sola instancia: velocidad normal, sin listeners duplicados y sin errores en consola. También en dev con Strict Mode.
+- [x] Los demás juegos (p. ej. `/juegos/caida/jugar`) siguen con la arena mock y la puntuación simulada.
+- [x] La consola no muestra errores de hidratación en `/juegos/asteroides/jugar`.
 
 ## Decisiones
 
