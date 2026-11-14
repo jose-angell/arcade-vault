@@ -1,8 +1,6 @@
 // Datos mock compartidos, portados de resources/templates/data.jsx
-
 export type GameCategory = "ARCADE" | "PUZZLE" | "SHOOTER" | "VERSUS";
 export type NeonColor = "cyan" | "magenta" | "yellow" | "green";
-
 export interface Game {
   id: string;
   title: string;
@@ -14,18 +12,15 @@ export interface Game {
   best: number;
   plays: string;
 }
-
 export interface ScoreRow {
   rank: number;
   name: string;
   score: number;
   date: string; // "DD/MM/2026"
 }
-
 export interface SessionUser {
   name: string; // mayúsculas, máx. 10 caracteres
 }
-
 export const GAMES: Game[] = [
   {
     id: "bloque-buster",
@@ -83,15 +78,15 @@ export const GAMES: Game[] = [
     plays: "18.0K",
   },
   {
-    id: "rocas",
-    title: "ROCAS",
+    id: "asteroides",
+    title: "ASTEROIDES",
     short: "Pulveriza asteroides en gravedad cero.",
-    long: "Tu nave triangular flota en vacío absoluto. Dispara y rota para dividir rocas en fragmentos cada vez más pequeños. Cuidado con los OVNIs en el horizonte.",
+    long: "Tu nave triangular flota en vacío absoluto. Rota, propúlsate y dispara para partir rocas en fragmentos cada vez más pequeños. Atrapa el cristal 3x para disparar en abanico.",
     cat: "SHOOTER",
-    cover: "cover-rocas",
-    color: "yellow",
-    best: 41200,
-    plays: "15.6K",
+    cover: "cover-asteroides",
+    color: "cyan",
+    best: 0,
+    plays: "0",
   },
   {
     id: "ranaria",
@@ -116,25 +111,30 @@ export const GAMES: Game[] = [
     plays: "4.2K",
   },
 ];
-
-export const CATS: ("TODOS" | GameCategory)[] = [
-  "TODOS",
-  "ARCADE",
-  "PUZZLE",
-  "SHOOTER",
-  "VERSUS",
-];
-
+export const CATS: ("TODOS" | GameCategory)[] = ["TODOS", "ARCADE", "PUZZLE", "SHOOTER", "VERSUS"];
 const PLAYERS = [
-  "PX_KAI", "NEONFOX", "Z3R0COOL", "M00NRYU", "VAULT_07", "GLITCHA",
-  "ATARI_KID", "CYBER_LU", "MAGENTA88", "SCANLINE", "BIT_LORD", "ARKADYA",
-  "DROID_X", "RGB_QUEEN", "PIXEL_DAD", "RETROVIRA", "VECTORX", "JOY_STK",
+  "PX_KAI",
+  "NEONFOX",
+  "Z3R0COOL",
+  "M00NRYU",
+  "VAULT_07",
+  "GLITCHA",
+  "ATARI_KID",
+  "CYBER_LU",
+  "MAGENTA88",
+  "SCANLINE",
+  "BIT_LORD",
+  "ARKADYA",
+  "DROID_X",
+  "RGB_QUEEN",
+  "PIXEL_DAD",
+  "RETROVIRA",
+  "VECTORX",
+  "JOY_STK",
 ];
-
 export function getGame(id: string): Game | undefined {
   return GAMES.find((g) => g.id === id);
 }
-
 // Determinista: misma semilla, mismas filas (evita hydration mismatch).
 export function seededScores(seed: number, count = 12): ScoreRow[] {
   let s = seed;
@@ -158,7 +158,5 @@ export function seededScores(seed: number, count = 12): ScoreRow[] {
       date: `${day}/${mon}/2026`,
     });
   }
-  return rows
-    .sort((a, b) => b.score - a.score)
-    .map((r, i) => ({ ...r, rank: i + 1 }));
+  return rows.sort((a, b) => b.score - a.score).map((r, i) => ({ ...r, rank: i + 1 }));
 }
