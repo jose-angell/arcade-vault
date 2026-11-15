@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { LoadingScreen } from "@/components/loading-screen";
 import { getGame, getGames } from "@/lib/data/games";
-import { formatPlays, seededScores } from "@/lib/games";
+import { getTopScores } from "@/lib/data/scores";
+import { formatPlays } from "@/lib/games";
 
 export async function generateStaticParams() {
   const games = await getGames();
@@ -40,7 +41,7 @@ async function GameDetail({
   const game = await getGame(id);
   if (!game) notFound();
 
-  const scores = seededScores(id.length * 17 + 3, 10);
+  const scores = await getTopScores(id, 10);
 
   return (
     <div className="av-detail fade-in">
@@ -89,6 +90,14 @@ async function GameDetail({
       <aside>
         <div className="leaderboard">
           <h3>MEJORES PUNTUACIONES</h3>
+          {scores.length === 0 && (
+            <div className="p-8 text-center">
+              <div className="pixel text-sm text-magenta">SÉ EL PRIMERO</div>
+              <div className="mt-2 text-[11px] tracking-widest text-ink-faint">
+                AÚN NO HAY PUNTUACIONES
+              </div>
+            </div>
+          )}
           {scores.map((r, i) => (
             <div
               key={r.rank}
