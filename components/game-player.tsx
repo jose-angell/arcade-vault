@@ -7,8 +7,12 @@ import { ControlsLegend, TouchControls } from "@/components/touch-controls";
 import { ENGINES } from "@/lib/engines";
 import type { EngineStats, GameEngine } from "@/lib/engines/types";
 import type { Game } from "@/lib/games";
+import { saveScore } from "@/app/juegos/[id]/jugar/actions";
 const LIVES = 3;
 const POINTS_PER_LEVEL = 2500;
+const NAME_RE = /^[A-Z0-9_]{1,10}$/;
+
+type SaveStatus = "idle" | "saving" | "saved" | "error";
 export function GamePlayer({ game }: { game: Game }) {
   const { user } = useSession();
   // Motor real si el juego lo tiene; si no, arena mock con puntuación simulada.
@@ -20,7 +24,7 @@ export function GamePlayer({ game }: { game: Game }) {
   const [paused, setPaused] = useState(false);
   const [over, setOver] = useState(false);
   const [name, setName] = useState(user ? user.name : "INVITADO");
-  const [saved, setSaved] = useState(false);
+  const [status, setStatus] = useState<SaveStatus>("idle");
   // Puntuación simulada. El azar vive solo dentro del intervalo (nunca en el
   // render), así que no hay hydration mismatch.
   useEffect(() => {
@@ -79,13 +83,31 @@ export function GamePlayer({ game }: { game: Game }) {
       setOver(true);
     }
   };
+  const nameValid = NAME_RE.test(name);
+
+  const save = async () => {
+    if (!nameValid || status === "saving") return;
+    // Juegos sin motor: el guardado sigue simulado y no crea filas.
+    if (!entry) {
+      setStatus("saved");
+      return;
+    }
+    setStatus("saving");
+    try {
+      const res = await saveScore({ gameId: game.id, name, score });
+      setStatus(res.ok ? "saved" : "error");
+    } catch {
+      setStatus("error");
+    }
+  };
+
   const restart = () => {
     setScore(0);
     setLives(LIVES);
     setEngineLevel(1);
     setPaused(false);
     setOver(false);
-    setSaved(false);
+    setStatus("idle");
     engineRef.current?.restart();
   };
   return (
@@ -172,20 +194,37 @@ export function GamePlayer({ game }: { game: Game }) {
             <h2 id="game-over-title">FIN DEL JUEGO</h2>
             <div className="final-label">PUNTUACIÓN FINAL</div>
             <div className="final">{score.toLocaleString("es-ES")}</div>
-            {!saved ? (
+            {status !== "saved" ? (
               <div className="input-row">
                 <input
                   value={name}
-                  onChange={(e) => setName(e.target.value.toUpperCase().slice(0, 10))}
+                  onChange={(e) =>
+                    setName(e.target.value.toUpperCase().replace(/[^A-Z0-9_]/g, "").slice(0, 10))
+                  }
+                  disabled={status === "saving"}
                   placeholder="TUS INICIALES"
                   aria-label="Tus iniciales"
                 />
-                <button type="button" className="btn yellow" onClick={() => setSaved(true)}>
-                  GUARDAR PUNTUACIÓN
+                <button
+                  type="button"
+                  className="btn yellow"
+                  onClick={save}
+                  disabled={!nameValid || status === "saving"}
+                >
+                  {status === "saving"
+                    ? "GUARDANDO…"
+                    : status === "error"
+                      ? "REINTENTAR"
+                      : "GUARDAR PUNTUACIÓN"}
                 </button>
               </div>
             ) : (
-              <div className="toast-saved">▸ PUNTUACIÓN GUARDADA_</div>
+              <div className="toast-saved" role="status">▸ PUNTUACIÓN GUARDADA_</div>
+            )}
+            {status === "error" && (
+              <div role="alert" className="mono mt-2 text-center text-[11px] tracking-[0.12em] text-magenta">
+                ERROR AL GUARDAR · TU PUNTUACIÓN SE CONSERVA, PULSA REINTENTAR
+              </div>
             )}
             <div className="actions">
               <button type="button" className="btn" onClick={restart}>

@@ -1,6 +1,6 @@
 # SPEC 06 — Catálogo de juegos y leaderboard en Supabase
 
-> **Estado:** aprobado
+> **Estado:** implementado
 > **Depende de:** SPEC 04, SPEC 05
 > **Fecha:** 2026-11-14
 > **Objetivo:** Mover el catálogo de juegos a una tabla `games` de Supabase y guardar puntuaciones anónimas reales en una tabla `scores` que alimenta el top 10 del salón y del detalle de cada juego.
@@ -126,27 +126,27 @@ Convenciones:
 
 ## Criterios de aceptación
 
-- [ ] `npm run build` y `npm run lint` terminan sin errores.
-- [ ] `supabase/migrations/` contiene la migración y está aplicada en el proyecto (visible en `list_migrations`).
-- [ ] `get_advisors` de seguridad no reporta tablas sin RLS ni la vista como `security definer`.
-- [ ] `lib/games.ts` ya no exporta `GAMES`, `seededScores` ni `getGame`. `grep seededScores` no devuelve resultados.
-- [ ] La biblioteca y la home muestran los 8 juegos en el mismo orden que antes, leídos de `games`.
-- [ ] Cambiar el `title` de un juego en Supabase y revalidar el tag `games` cambia el título en la biblioteca.
-- [ ] `/juegos/no-existe` da 404.
-- [ ] Con `scores` vacía, el salón y el detalle muestran "SÉ EL PRIMERO" y el récord de cada juego es 0.
-- [ ] Al terminar ASTEROIDES y guardar con iniciales `TEST_01`, aparece ▸ PUNTUACIÓN GUARDADA_ y la fila sale en el salón y en `/juegos/asteroides` sin reiniciar el servidor.
-- [ ] Tras guardar, el récord y las partidas de ASTEROIDES en la tarjeta y el detalle reflejan la nueva fila.
-- [ ] El top 10 está ordenado por puntuación descendente y, a igualdad, por fecha más antigua primero. Muestra como máximo 10 filas.
-- [ ] Con iniciales vacías el botón GUARDAR PUNTUACIÓN está deshabilitado.
-- [ ] `saveScore` con nombre `"ab c"`, score `-1`, score `1.5` o `gameId` `caida` devuelve `{ ok: false }` y no inserta nada.
-- [ ] Un insert directo con la publishable key y `player_name = 'hola'` es rechazado por el CHECK.
-- [ ] Un update o delete en `scores` con la publishable key no afecta a ninguna fila.
-- [ ] En un juego mock (p. ej. CAÍDA) GUARDAR PUNTUACIÓN sigue simulado y no crea filas en `scores`.
-- [ ] Si falla el insert, el modal muestra un error y permite reintentar sin perder la puntuación.
-- [ ] Con una URL de Supabase inválida, biblioteca, detalle y salón muestran "SEÑAL PERDIDA · REINTENTA" en lugar de romper la página.
-- [ ] La fila "TU MEJOR MARCA" ya no aparece en el salón.
-- [ ] Ningún archivo fuera de `lib/supabase/` y `lib/data/` importa `@supabase/*`.
-- [ ] La consola no muestra errores de hidratación en `/`, `/biblioteca`, `/salon` ni `/juegos/asteroides`.
+- [x] `npm run build` y `npm run lint` terminan sin errores.
+- [x] `supabase/migrations/` contiene la migración y está aplicada en el proyecto (visible en `list_migrations`).
+- [x] `get_advisors` de seguridad no reporta tablas sin RLS ni la vista como `security definer`.
+- [x] `lib/games.ts` ya no exporta `GAMES`, `seededScores` ni `getGame`. `grep seededScores` no devuelve resultados.
+- [x] La biblioteca y la home muestran los 8 juegos en el mismo orden que antes, leídos de `games`.
+- [x] Cambiar el `title` de un juego en Supabase y revalidar el tag `games` cambia el título en la biblioteca.
+- [x] `/juegos/no-existe` da 404.
+- [x] Con `scores` vacía, el salón y el detalle muestran "SÉ EL PRIMERO" y el récord de cada juego es 0.
+- [x] Al terminar ASTEROIDES y guardar con iniciales `TEST_01`, aparece ▸ PUNTUACIÓN GUARDADA_ y la fila sale en el salón y en `/juegos/asteroides` sin reiniciar el servidor.
+- [x] Tras guardar, el récord y las partidas de ASTEROIDES en la tarjeta y el detalle reflejan la nueva fila.
+- [x] El top 10 está ordenado por puntuación descendente y, a igualdad, por fecha más antigua primero. Muestra como máximo 10 filas.
+- [x] Con iniciales vacías el botón GUARDAR PUNTUACIÓN está deshabilitado.
+- [x] `saveScore` con nombre `"ab c"`, score `-1`, score `1.5` o `gameId` `caida` devuelve `{ ok: false }` y no inserta nada.
+- [x] Un insert directo con la publishable key y `player_name = 'hola'` es rechazado por el CHECK.
+- [x] Un update o delete en `scores` con la publishable key no afecta a ninguna fila.
+- [x] En un juego mock (p. ej. CAÍDA) GUARDAR PUNTUACIÓN sigue simulado y no crea filas en `scores`.
+- [x] Si falla el insert, el modal muestra un error y permite reintentar sin perder la puntuación.
+- [x] Con una URL de Supabase inválida, biblioteca, detalle y salón muestran "SEÑAL PERDIDA · REINTENTA" en lugar de romper la página.
+- [x] La fila "TU MEJOR MARCA" ya no aparece en el salón.
+- [x] Ningún archivo fuera de `lib/supabase/` y `lib/data/` importa `@supabase/*`.
+- [x] La consola no muestra errores de hidratación en `/`, `/biblioteca`, `/salon` ni `/juegos/asteroides`.
 
 ## Decisiones
 
