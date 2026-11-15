@@ -48,3 +48,17 @@ export async function getGame(id: string): Promise<Game | null> {
   if (error) throw new Error(`No se pudo leer el juego: ${error.message}`);
   return data ? toGame(data) : null;
 }
+
+// Para generateStaticParams. Con Cache Components debe devolver al menos un
+// parámetro. En producción un fallo de lectura rompe el build (a propósito); en
+// desarrollo se devuelve un id de relleno para que la página renderice y el
+// error llegue al boundary "SEÑAL PERDIDA" en vez de romper la ruta.
+export async function getGameStaticParams(): Promise<{ id: string }[]> {
+  try {
+    const games = await getGames();
+    return games.map((g) => ({ id: g.id }));
+  } catch (error) {
+    if (process.env.NODE_ENV === "production") throw error;
+    return [{ id: "__placeholder__" }];
+  }
+}

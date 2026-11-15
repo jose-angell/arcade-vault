@@ -3,18 +3,23 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { LoadingScreen } from "@/components/loading-screen";
 import { GamePlayer } from "@/components/game-player";
-import { getGame, getGames } from "@/lib/data/games";
+import { getGame, getGameStaticParams } from "@/lib/data/games";
 
 export async function generateStaticParams() {
-  const games = await getGames();
-  return games.map((g) => ({ id: g.id }));
+  return getGameStaticParams();
 }
 
 export async function generateMetadata({
   params,
 }: PageProps<"/juegos/[id]/jugar">): Promise<Metadata> {
   const { id } = await params;
-  const game = await getGame(id);
+  let game;
+  try {
+    game = await getGame(id);
+  } catch {
+    // La lectura falló: el boundary de la página mostrará SEÑAL PERDIDA.
+    return { title: "Señal perdida" };
+  }
   if (!game) return { title: "Juego no encontrado" };
   return { title: `Jugando ${game.title}` };
 }
