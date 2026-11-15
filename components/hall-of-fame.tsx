@@ -1,25 +1,48 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
-import { useSession } from "@/components/session-provider";
-import { seededScores, type Game } from "@/lib/games";
+import type { Game, ScoreRow } from "@/lib/games";
 
 const TOP_CLASS = ["top1", "top2", "top3"];
 const fmt = (n: number) => n.toLocaleString("es-ES");
 
-export function HallOfFame({ games }: { games: Game[] }) {
-  const { user } = useSession();
-  const [tab, setTab] = useState(games[0].id);
+function PodiumSlot({
+  row,
+  rank,
+  className,
+  champion,
+}: {
+  row?: ScoreRow;
+  rank: string;
+  className: string;
+  champion?: boolean;
+}) {
+  return (
+    <div className={`podium-slot ${className}`}>
+      {champion && (
+        <div className="pixel text-[9px] tracking-[0.18em] text-gold">
+          CAMPEÓN
+        </div>
+      )}
+      <div className={"rank-num" + (champion ? " mt-1 text-[36px]" : "")}>
+        {rank}
+      </div>
+      <div className="name">{row ? row.name : "---"}</div>
+      <div className={"score" + (champion ? " text-[20px]" : "")}>
+        {row ? fmt(row.score) : "---"}
+      </div>
+      <div className="date">{row ? row.date : "---"}</div>
+    </div>
+  );
+}
 
-  // Determinista: misma pestaña, mismas filas (sin hydration mismatch).
-  const rows = seededScores(tab.length * 23 + 7, 12);
-  const game = games.find((g) => g.id === tab) ?? games[0];
-
-  // Mock del MVP: rango y marca inventados para la fila del usuario.
-  const youRank = 8 + (tab.length % 4);
-  const youScore = rows[5].score - 2400;
-
+export function HallOfFame({
+  games,
+  game,
+  rows,
+}: {
+  games: Game[];
+  game: Game;
+  rows: ScoreRow[];
+}) {
   const [first, second, third] = rows;
 
   return (
@@ -31,43 +54,24 @@ export function HallOfFame({ games }: { games: Game[] }) {
         </p>
       </div>
 
-      <div className="hall-tabs" role="tablist" aria-label="Juegos">
+      <nav className="hall-tabs" aria-label="Juegos">
         {games.map((g) => (
-          <button
+          <Link
             key={g.id}
-            type="button"
-            role="tab"
-            aria-selected={tab === g.id}
-            className={"chip" + (tab === g.id ? " active" : "")}
-            onClick={() => setTab(g.id)}
+            href={`/salon?juego=${g.id}`}
+            scroll={false}
+            aria-current={g.id === game.id ? "page" : undefined}
+            className={"chip" + (g.id === game.id ? " active" : "")}
           >
             {g.title}
-          </button>
+          </Link>
         ))}
-      </div>
+      </nav>
 
       <div className="podium">
-        <div className="podium-slot silver">
-          <div className="rank-num">02</div>
-          <div className="name">{second.name}</div>
-          <div className="score">{fmt(second.score)}</div>
-          <div className="date">{second.date}</div>
-        </div>
-        <div className="podium-slot gold">
-          <div className="pixel text-[9px] tracking-[0.18em] text-gold">
-            CAMPEÓN
-          </div>
-          <div className="rank-num mt-1 text-[36px]">01</div>
-          <div className="name">{first.name}</div>
-          <div className="score text-[20px]">{fmt(first.score)}</div>
-          <div className="date">{first.date}</div>
-        </div>
-        <div className="podium-slot bronze">
-          <div className="rank-num">03</div>
-          <div className="name">{third.name}</div>
-          <div className="score">{fmt(third.score)}</div>
-          <div className="date">{third.date}</div>
-        </div>
+        <PodiumSlot row={second} rank="02" className="silver" />
+        <PodiumSlot row={first} rank="01" className="gold" champion />
+        <PodiumSlot row={third} rank="03" className="bronze" />
       </div>
 
       <div className="hall-table">
@@ -77,9 +81,17 @@ export function HallOfFame({ games }: { games: Game[] }) {
           <div>PUNTUACIÓN</div>
           <div>FECHA</div>
         </div>
+        {rows.length === 0 && (
+          <div className="p-10 text-center">
+            <div className="pixel text-sm text-magenta">SÉ EL PRIMERO</div>
+            <div className="mt-2 text-[11px] tracking-widest text-ink-faint">
+              AÚN NO HAY PUNTUACIONES EN {game.title}
+            </div>
+          </div>
+        )}
         {rows.map((r, i) => (
           <div
-            key={`${tab}-${r.rank}`}
+            key={`${game.id}-${r.rank}`}
             className={"tr" + (TOP_CLASS[i] ? " " + TOP_CLASS[i] : "")}
             style={{ animationDelay: `${i * 50}ms` }}
           >
@@ -89,24 +101,6 @@ export function HallOfFame({ games }: { games: Game[] }) {
             <div className="dt">{r.date}</div>
           </div>
         ))}
-        {user && (
-          <>
-            <div className="tr you-label">▸ TU MEJOR MARCA EN {game.title}</div>
-            <div
-              className="tr you"
-              style={{ animationDelay: `${rows.length * 50 + 50}ms` }}
-            >
-              <div className="rk text-yellow">
-                #{String(youRank).padStart(2, "0")}
-              </div>
-              <div className="pl text-yellow">{user.name}</div>
-              <div className="sc text-yellow [text-shadow:0_0_6px_rgba(245,255,0,0.5)]">
-                {fmt(youScore)}
-              </div>
-              <div className="dt">11/05/2026</div>
-            </div>
-          </>
-        )}
       </div>
 
       <div className="mt-8 text-center">
