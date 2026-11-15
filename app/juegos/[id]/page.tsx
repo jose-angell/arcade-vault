@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { LoadingScreen } from "@/components/loading-screen";
-import { GAMES, getGame, seededScores } from "@/lib/games";
+import { GAMES, formatPlays, getGame, seededScores } from "@/lib/games";
 
 export function generateStaticParams() {
   return GAMES.map((g) => ({ id: g.id }));
@@ -58,7 +58,7 @@ async function GameDetail({
           <div className="stat-strip">
             <div>
               <div className="l">Partidas</div>
-              <div className="v">{game.plays}</div>
+              <div className="v">{formatPlays(game.plays)}</div>
             </div>
             <div>
               <div className="l">Mejor global</div>
