@@ -3,18 +3,18 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSession } from "@/components/session-provider";
-import { GAMES, getGame, seededScores } from "@/lib/games";
+import { seededScores, type Game } from "@/lib/games";
 
 const TOP_CLASS = ["top1", "top2", "top3"];
 const fmt = (n: number) => n.toLocaleString("es-ES");
 
-export function HallOfFame() {
+export function HallOfFame({ games }: { games: Game[] }) {
   const { user } = useSession();
-  const [tab, setTab] = useState(GAMES[0].id);
+  const [tab, setTab] = useState(games[0].id);
 
   // Determinista: misma pestaña, mismas filas (sin hydration mismatch).
   const rows = seededScores(tab.length * 23 + 7, 12);
-  const game = getGame(tab) ?? GAMES[0];
+  const game = games.find((g) => g.id === tab) ?? games[0];
 
   // Mock del MVP: rango y marca inventados para la fila del usuario.
   const youRank = 8 + (tab.length % 4);
@@ -32,7 +32,7 @@ export function HallOfFame() {
       </div>
 
       <div className="hall-tabs" role="tablist" aria-label="Juegos">
-        {GAMES.map((g) => (
+        {games.map((g) => (
           <button
             key={g.id}
             type="button"

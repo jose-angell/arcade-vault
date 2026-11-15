@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GAMES } from "@/lib/games";
+import type { Game } from "@/lib/games";
 import { FAQ, FEATURES, RECENT_SCORES, TOP_TODAY } from "@/lib/home";
 import { FeatureIcon } from "@/components/home/feature-icon";
 import { FloatingSilhouettes } from "@/components/home/floating-silhouettes";
@@ -15,8 +15,8 @@ const PRICING_PERKS = [
   "Funciona en cualquier navegador",
 ];
 
-const STATS = [
-  { n: String(GAMES.length), u: "JUEGOS", s: "Y CONTANDO" },
+const buildStats = (games: Game[]) => [
+  { n: String(games.length), u: "JUEGOS", s: "Y CONTANDO" },
   { n: "MILES", u: "DE PARTIDAS", s: "JUGADAS CADA DÍA" },
   { n: "GLOBAL", u: "RANKING", s: "COMPITE CON EL MUNDO" },
 ];
@@ -39,7 +39,8 @@ function SectionHead({
   );
 }
 
-export function HomePage() {
+export function HomePage({ games }: { games: Game[] }) {
+  const STATS = buildStats(games);
   return (
     <div className="home fade-in">
       <RevealObserver />
@@ -96,7 +97,7 @@ export function HomePage() {
       <section className="home-section reveal">
         <SectionHead kicker="// 02" color="cyan" title="JUEGOS DISPONIBLES AHORA" />
         <div className="mini-rail">
-          {GAMES.slice(0, 6).map((g) => (
+          {games.slice(0, 6).map((g) => (
             <Link key={g.id} href={`/juegos/${g.id}`} className="mini-card">
               <div className="mini-cover">
                 <div className={`cover-bg ${g.cover}`} />
